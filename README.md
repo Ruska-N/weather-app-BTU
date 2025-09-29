@@ -1,3 +1,18 @@
+To Do
+1. Header with functional dropdown (toggle with C/F)
+2. Search bar (autocomplete/search history)
+3. Currant weather section
+4. Daily forecast
+5. Right side hourly forecast (dropdown: choose day)
+6. Error state
+7. Responsive
+
+
+
+
+
+
+
 # WeatherAppBTU
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
