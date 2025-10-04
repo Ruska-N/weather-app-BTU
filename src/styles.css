@@ -1,15 +1,22 @@
 :root {
-  --landing-bg: hsl(243, 96%, 9%); /* Neutral 900 */
-  --dark-grey: hsl(243, 27%, 20%); /* Neutral 800 */
-  --grey-700: hsl(243, 23%, 24%); /* Neutral 700 */
-  --border-grey: hsl(243, 23%, 30%); /* Neutral 600 */
-  --grey-300: hsl(240, 6%, 70%); /* Neutral 300 */
-  --grey-200: hsl(250, 6%, 84%); /* Neutral 200 */
-  --white: hsl(0, 0%, 100%); /* Neutral 0 */
+    --landing-bg: hsl(243, 96%, 9%);
+    /* Neutral 900 */
+    --dark-grey: hsl(243, 27%, 20%);
+    /* Neutral 800 */
+    --grey-700: hsl(243, 23%, 24%);
+    /* Neutral 700 */
+    --border-grey: hsl(243, 23%, 30%);
+    /* Neutral 600 */
+    --grey-300: hsl(240, 6%, 70%);
+    /* Neutral 300 */
+    --grey-200: hsl(250, 6%, 84%);
+    /* Neutral 200 */
+    --white: hsl(0, 0%, 100%);
+    /* Neutral 0 */
 
-  --orange-500: hsl(28, 100%, 52%);
-  --Blue-500: hsl(233, 67%, 56%);
-  --Blue-700: hsl(248, 70%, 36%);
+    --orange-500: hsl(28, 100%, 52%);
+    --Blue-500: hsl(233, 67%, 56%);
+    --Blue-700: hsl(248, 70%, 36%);
 }
 
 
@@ -18,12 +25,17 @@
     margin: 0;
     padding: 0;
 }
+
 body {
-  font-family: "DM Sans", sans-serif;
-  background-color: var(--landing-bg);
-  color: var(--white);
+    font-family: "DM Sans", sans-serif;
+    background-color: var(--landing-bg);
+    color: var(--white);
 }
 
+.container {
+    width: 84.44%;
+    margin: auto;
+}
 
 h1 {
     font-family: "Bricolage Grotesque", sans-serif;
@@ -33,6 +45,7 @@ h1 {
     text-align: center;
     color: var(--white);
 }
+
 h2 {
     font-family: "DM Sans", sans-serif;
     font-size: 28px;
@@ -40,17 +53,20 @@ h2 {
     line-height: 120%;
     color: var(--white);
 }
+
 h3 {
     font-family: "Bricolage Grotesque", sans-serif;
     font-size: 22px;
     font-weight: bold;
     color: var(--white);
 }
+
 h4 {
     font-family: "DM Sans", sans-serif;
     font-size: 18px;
     font-weight: 500;
 }
+
 h5 {
     font-family: "DM Sans", sans-serif;
     font-size: 16px;

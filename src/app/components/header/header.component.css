@@ -1,0 +1,22 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    margin-bottom: 64px;
+}
+
+.units-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 119px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: var(--grey-700);
+}
+
+.units-container img,
+.units-container span {
+    cursor: pointer;
+}
