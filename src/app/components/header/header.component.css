@@ -7,7 +7,6 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 48px;
-    margin-bottom: 64px;
 }
 
 .header-container .logo {
@@ -138,4 +137,8 @@
     border: none;
     border-top: 1px solid var(--border-grey);
     margin: 8px 0;
+}
+
+h1 {
+    margin: 64px 0px;
 }

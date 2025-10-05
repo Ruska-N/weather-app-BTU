@@ -32,6 +32,11 @@ body {
     color: var(--white);
 }
 
+input,
+button {
+    font-family: "DM Sans", sans-serif;
+}
+
 .container {
     width: 84.44%;
     margin: auto;
