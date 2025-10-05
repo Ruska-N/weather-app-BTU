@@ -1,196 +1,198 @@
-<div class="header-container container">
-  <div class="logo">
-    <img src="images/logo.svg" alt="logo" />
-  </div>
-
-  <div class="custom-select-wrapper">
-    <div class="units-container" (click)="toggleDropdown($event)">
-      <img src="images/icon-units.svg" alt="units" />
-      <span>Units</span>
-      <img src="images/icon-dropdown.svg" alt="dropdown" />
+<header>
+  <div class="header-container container">
+    <div class="logo">
+      <img src="images/logo.svg" alt="logo" />
     </div>
 
-    <div class="dropdown-menu" [class.show]="isDropdownOpen">
-      <div
-        class="switch-item"
-        (click)="toggleSystem('imperial'); $event.stopPropagation()"
-        *ngIf="settings.temperature === 'celsius'"
-      >
-        <span>Switch to Imperial</span>
+    <div class="custom-select-wrapper">
+      <div class="units-container" (click)="toggleDropdown($event)">
+        <img src="images/icon-units.svg" alt="units" />
+        <span>Units</span>
+        <img  class="dropdown" src="images/icon-dropdown.svg" alt="dropdown" />
       </div>
-      <div
-        class="switch-item"
-        (click)="toggleSystem('metric'); $event.stopPropagation()"
-        *ngIf="settings.temperature === 'fahrenheit'"
-      >
-        <span>Switch to Metric</span>
-      </div>
-      <hr class="separator" />
 
-      <div class="dropdown-section">
-        <p class="section-title">Temperature</p>
-        <label class="dropdown-item" (click)="$event.stopPropagation()">
-          <input
-            type="radio"
-            name="temperature"
-            [checked]="settings.temperature === 'celsius'"
-            (change)="onUnitChange('temperature', 'celsius')"
-          />
-          <span>Celsius (°C)</span>
-          <svg
-            class="check-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M13.3337 4L6.00033 11.3333L2.66699 8"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </label>
-        <label class="dropdown-item" (click)="$event.stopPropagation()">
-          <input
-            type="radio"
-            name="temperature"
-            [checked]="settings.temperature === 'fahrenheit'"
-            (change)="onUnitChange('temperature', 'fahrenheit')"
-          />
-          <span>Fahrenheit (°F)</span>
-          <svg
-            class="check-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M13.3337 4L6.00033 11.3333L2.66699 8"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </label>
-      </div>
-      <hr class="separator" />
+      <div class="dropdown-menu" [class.show]="isDropdownOpen">
+        <div
+          class="switch-item"
+          (click)="toggleSystem('imperial'); $event.stopPropagation()"
+          *ngIf="settings.temperature === 'celsius'"
+        >
+          <span>Switch to Imperial</span>
+        </div>
+        <div
+          class="switch-item"
+          (click)="toggleSystem('metric'); $event.stopPropagation()"
+          *ngIf="settings.temperature === 'fahrenheit'"
+        >
+          <span>Switch to Metric</span>
+        </div>
+        <hr class="separator" />
 
-      <div class="dropdown-section">
-        <p class="section-title">Wind Speed</p>
-        <label class="dropdown-item" (click)="$event.stopPropagation()">
-          <input
-            type="radio"
-            name="wind"
-            [checked]="settings.wind === 'kmh'"
-            (change)="onUnitChange('wind', 'kmh')"
-          />
-          <span>km/h</span>
-          <svg
-            class="check-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M13.3337 4L6.00033 11.3333L2.66699 8"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        <div class="dropdown-section">
+          <p class="section-title">Temperature</p>
+          <label class="dropdown-item" (click)="$event.stopPropagation()">
+            <input
+              type="radio"
+              name="temperature"
+              [checked]="settings.temperature === 'celsius'"
+              (change)="onUnitChange('temperature', 'celsius')"
             />
-          </svg>
-        </label>
-        <label class="dropdown-item" (click)="$event.stopPropagation()">
-          <input
-            type="radio"
-            name="wind"
-            [checked]="settings.wind === 'mph'"
-            (change)="onUnitChange('wind', 'mph')"
-          />
-          <span>mph</span>
-          <svg
-            class="check-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M13.3337 4L6.00033 11.3333L2.66699 8"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+            <span>Celsius (°C)</span>
+            <svg
+              class="check-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </label>
+          <label class="dropdown-item" (click)="$event.stopPropagation()">
+            <input
+              type="radio"
+              name="temperature"
+              [checked]="settings.temperature === 'fahrenheit'"
+              (change)="onUnitChange('temperature', 'fahrenheit')"
             />
-          </svg>
-        </label>
-      </div>
-      <hr class="separator" />
+            <span>Fahrenheit (°F)</span>
+            <svg
+              class="check-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </label>
+        </div>
+        <hr class="separator" />
 
-      <div class="dropdown-section">
-        <p class="section-title">Precipitation</p>
-        <label class="dropdown-item" (click)="$event.stopPropagation()">
-          <input
-            type="radio"
-            name="precipitation"
-            [checked]="settings.precipitation === 'mm'"
-            (change)="onUnitChange('precipitation', 'mm')"
-          />
-          <span>Millimeters (mm)</span>
-          <svg
-            class="check-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M13.3337 4L6.00033 11.3333L2.66699 8"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        <div class="dropdown-section">
+          <p class="section-title">Wind Speed</p>
+          <label class="dropdown-item" (click)="$event.stopPropagation()">
+            <input
+              type="radio"
+              name="wind"
+              [checked]="settings.wind === 'kmh'"
+              (change)="onUnitChange('wind', 'kmh')"
             />
-          </svg>
-        </label>
-        <label class="dropdown-item" (click)="$event.stopPropagation()">
-          <input
-            type="radio"
-            name="precipitation"
-            [checked]="settings.precipitation === 'inches'"
-            (change)="onUnitChange('precipitation', 'inches')"
-          />
-          <span>Inches</span>
-          <svg
-            class="check-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M13.3337 4L6.00033 11.3333L2.66699 8"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+            <span>km/h</span>
+            <svg
+              class="check-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </label>
+          <label class="dropdown-item" (click)="$event.stopPropagation()">
+            <input
+              type="radio"
+              name="wind"
+              [checked]="settings.wind === 'mph'"
+              (change)="onUnitChange('wind', 'mph')"
             />
-          </svg>
-        </label>
+            <span>mph</span>
+            <svg
+              class="check-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </label>
+        </div>
+        <hr class="separator" />
+
+        <div class="dropdown-section">
+          <p class="section-title">Precipitation</p>
+          <label class="dropdown-item" (click)="$event.stopPropagation()">
+            <input
+              type="radio"
+              name="precipitation"
+              [checked]="settings.precipitation === 'mm'"
+              (change)="onUnitChange('precipitation', 'mm')"
+            />
+            <span>Millimeters (mm)</span>
+            <svg
+              class="check-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </label>
+          <label class="dropdown-item" (click)="$event.stopPropagation()">
+            <input
+              type="radio"
+              name="precipitation"
+              [checked]="settings.precipitation === 'inches'"
+              (change)="onUnitChange('precipitation', 'inches')"
+            />
+            <span>Inches</span>
+            <svg
+              class="check-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </label>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<h1>How’s the sky looking today?</h1>
+  <h1>How’s the sky looking today?</h1>
+</header>
