@@ -1,7 +1,21 @@
-<div class="search-container">
+<form class="search-container" (ngSubmit)="onSearch()">
   <div class="search-input-wrapper">
     <img src="images/icon-search.svg" alt="search icon" class="search-icon" />
-    <input type="search" placeholder="Search for a place" />
+    <input
+      type="search"
+      placeholder="Search for a place"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onInputChange()"
+      name="searchQuery"
+      autocomplete="off"
+    />
+    <div class="suggestions-dropdown" *ngIf="showSuggestions">
+      <ul>
+        <li *ngFor="let city of suggestions" (click)="selectCity(city)">
+          {{ city }}
+        </li>
+      </ul>
+    </div>
   </div>
-  <button class="search-button">Search</button>
-</div>
+  <button type="submit" class="search-button">Search</button>
+</form>

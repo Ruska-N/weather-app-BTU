@@ -8,6 +8,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
 import { DailyForecastComponent } from './components/daily-forecast/daily-forecast.component';
 import { HourlyForecastComponent } from './components/hourly-forecast/hourly-forecast.component';
+import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ import { HourlyForecastComponent } from './components/hourly-forecast/hourly-for
   template: `
     <app-header (settingsChanged)="onSettingsChange($event)"></app-header>
     <main class="container">
-      <app-search-bar></app-search-bar>
+      <app-search-bar (search)="handleSearch($event)"></app-search-bar>
       <app-current-weather></app-current-weather>
       <app-daily-forecast></app-daily-forecast>
       <app-hourly-forecast></app-hourly-forecast>
@@ -37,7 +38,17 @@ export class AppComponent {
     precipitation: 'mm',
   };
 
+  currentWeather: any = null;
+
+  constructor(private weatherService: WeatherService) {}
+
   onSettingsChange(settings: UnitSettings) {
     this.currentSettings = settings;
+  }
+
+  handleSearch(city: string) {
+    this.weatherService.getWeatherForCity(city).subscribe((data: any) => {
+      this.currentWeather = data;
+    });
   }
 }
