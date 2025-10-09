@@ -1,1 +1,31 @@
 <p>current-weather works!</p>
+<div class="weather-info-container" *ngIf="data">
+    <div class="weather-info">
+        <div class="location-info">
+            <h2 class="location">{{ data.cityName }}</h2>
+            <h4 class="date">{{ data.date | date:'EEEE, MMM d, y' }}</h4>
+        </div>
+        <div class="temperature-icon">
+            <img [src]="data.iconUrl" alt="weather icon" />
+        </div>
+        <div class="temperature">{{ data.temperature }}°</div>
+    </div>
+    <div class="weather-details-container">
+        <div class="feels-like-container details">
+            <h4 class="feels-like-label">Feels Like</h4>
+            <h6 class="feels-like-value">{{ data.feelsLike }}°</h6>
+        </div>
+        <div class="humidity-container details">
+            <h4 class="humidity-label">Humidity</h4>
+            <h6 class="humidity-value">>{{ data.humidity }}%</h6>
+        </div>
+        <div class="wind-container details">
+            <h4 class="wind-label">Wind</h4>
+            <h6 class="wind-value">{{ data.windSpeed }} km/h</h6>
+        </div>
+        <div class="precipitation-container details">
+            <h4 class="precipitation-label">Precipitation</h4>
+            <h6 class="precipitation-value">{{ data.precipitation }} mm</h6>
+        </div>
+    </div>
+</div>
