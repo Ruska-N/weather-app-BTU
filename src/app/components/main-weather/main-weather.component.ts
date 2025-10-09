@@ -14,18 +14,19 @@ export class MainWeatherComponent implements OnInit {
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {
-    this.weatherService.getWeather().subscribe({
-      next: (data) => {
-        console.log('Weather API data:', data);
-        this.weatherData = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.error = 'Failed to load weather data';
-        this.loading = false;
-      }
-    });
-  }
+  this.weatherService.getWeather().subscribe({
+    next: (data) => {
+      this.weatherData = data.current;
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error(err);
+      this.error = 'Failed to load weather data';
+      this.loading = false;
+    }
+  });
 }
+
+}
+
 
