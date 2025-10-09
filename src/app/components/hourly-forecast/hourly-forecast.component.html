@@ -1,1 +1,23 @@
-<p>hourly-forecast works!</p>
+<div class="hourly-forecast-container">
+  <div class="header">
+    <h2 class="title">Hourly forecast</h2>
+  </div>
+
+  <div class="forecast-list">
+    <div class="forecast-item" *ngFor="let hour of hourlyData">
+      <span class="time">{{ hour.time }}</span>
+      <img
+        [src]="'assets/images/weather-icons/icon-' + hour.icon + '.webp'"
+        [alt]="hour.icon + ' icon'"
+        class="weather-icon"
+      />
+
+      <span class="temperature" *ngIf="settings.temperature === 'celsius'">
+        {{ hour.temperature.celsius }}°
+      </span>
+      <span class="temperature" *ngIf="settings.temperature === 'fahrenheit'">
+        {{ hour.temperature.fahrenheit }}°
+      </span>
+    </div>
+  </div>
+</div>

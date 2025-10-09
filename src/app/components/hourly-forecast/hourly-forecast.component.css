@@ -1,0 +1,62 @@
+:host {
+    display: block;
+}
+
+.hourly-forecast-container {
+    background-color: var(--dark-grey);
+    border: 1px solid var(--border-grey);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0;
+}
+
+.forecast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.forecast-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-grey);
+}
+
+.forecast-item:last-child {
+    border-bottom: none;
+}
+
+.time {
+    font-size: 16px;
+    color: var(--grey-200);
+    text-align: left;
+}
+
+.weather-icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+}
+
+.temperature {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    text-align: right;
+}
