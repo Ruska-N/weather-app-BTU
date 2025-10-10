@@ -1,17 +1,38 @@
 <div class="hourly-forecast-container">
   <div class="header">
     <h2 class="title">Hourly forecast</h2>
+    <div class="day-selector-wrapper">
+      <button class="day-selector-button" (click)="toggleDropdown()">
+        <span>{{ selectedDay }}</span>
+        <img
+          class="dropdown-icon"
+          [class.rotated]="isDropdownOpen"
+          src="images/icon-dropdown.svg"
+          alt="dropdown"
+        />
+      </button>
+      <div class="dropdown-menu" *ngIf="isDropdownOpen">
+        <ul>
+          <li
+            *ngFor="let day of days"
+            (click)="selectDay(day)"
+            [class.active]="day === selectedDay"
+          >
+            {{ day }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <div class="forecast-list">
-    <div class="forecast-item" *ngFor="let hour of hourlyData">
+    <div class="forecast-item" *ngFor="let hour of displayData">
       <span class="time">{{ hour.time }}</span>
       <img
-        [src]="'assets/images/weather-icons/icon-' + hour.icon + '.webp'"
+        [src]="'images/icon-' + hour.icon + '.webp'"
         [alt]="hour.icon + ' icon'"
         class="weather-icon"
       />
-
       <span class="temperature" *ngIf="settings.temperature === 'celsius'">
         {{ hour.temperature.celsius }}°
       </span>

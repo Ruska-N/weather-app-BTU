@@ -1,1 +1,45 @@
-<p>current-weather works!</p>
+<div class="current-weather-container" *ngIf="currentWeather">
+  <div class="main-info">
+    <div class="location-details">
+      <h2>{{ cityName }}</h2>
+      <p>{{ currentWeather.time | date:'EEEE, MMM d, y' }}</p>
+    </div>
+    <div class="temperature-details">
+      <img [src]="weatherIcon" alt="weather icon" class="weather-icon-large" />
+      <div class="temperature">
+        <span *ngIf="settings.temperature === 'celsius'">{{ currentWeather.temperature | number:'1.0-0' }}</span>
+        <span *ngIf="settings.temperature === 'fahrenheit'">{{ (currentWeather.temperature * 9/5 + 32) | number:'1.0-0' }}</span>
+        <span class="degree-symbol">°</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="weather-details-grid">
+    <div class="detail-card">
+      <p class="detail-label">Feels Like</p>
+      <p class="detail-value">
+        <span *ngIf="settings.temperature === 'celsius'">{{ currentWeather.feelsLike | number:'1.0-0' }}°</span>
+        <span *ngIf="settings.temperature === 'fahrenheit'">{{ (currentWeather.feelsLike * 9/5 + 32) | number:'1.0-0' }}°</span>
+      </p>
+    </div>
+    <div class="detail-card">
+      <p class="detail-label">Humidity</p>
+      <p class="detail-value">{{ currentWeather.humidity | number:'1.0-0' }}%</p>
+    </div>
+    <div class="detail-card">
+      <p class="detail-label">Wind</p>
+      <p class="detail-value">
+        <span *ngIf="settings.wind === 'kmh'">{{ currentWeather.windSpeed | number:'1.0-0' }} km/h</span>
+        <span *ngIf="settings.wind === 'mph'">{{ (currentWeather.windSpeed / 1.609) | number:'1.0-0' }} mph</span>
+      </p>
+    </div>
+    <div class="detail-card">
+      <p class="detail-label">Precipitation</p>
+      <p class="detail-value">
+        <span *ngIf="settings.precipitation === 'mm'">{{ currentWeather.precipitation | number:'1.0-0' }} mm</span>
+        <span *ngIf="settings.precipitation === 'inches'">{{ (currentWeather.precipitation / 25.4) | number:'1.1-1' }} in</span>
+      </p>
+    </div>
+  </div>
+</div>
+
