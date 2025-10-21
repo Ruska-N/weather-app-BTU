@@ -26,15 +26,15 @@
 .forecast-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0;
 }
 
 .forecast-item {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    text-align: center;
-    padding: 8px 0;
+    gap: 16px;
+    padding: 12px 0;
     border-bottom: 1px solid var(--border-grey);
 }
 
@@ -45,6 +45,7 @@
 .time {
     font-size: 16px;
     color: var(--grey-200);
+    font-weight: 500;
     text-align: left;
 }
 
@@ -66,7 +67,9 @@
 
 .day-selector-button {
     background: none;
-    border: none;
+    border: 1px solid var(--border-grey);
+    border-radius: 8px;
+    padding: 8px 12px;
     color: var(--white);
     font-family: inherit;
     font-size: 16px;
@@ -75,6 +78,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    background-color: var(--dark-grey);
+    transition: background-color 0.2s ease;
+}
+
+.day-selector-button:hover {
+    background-color: var(--grey-700);
 }
 
 .dropdown-icon {
@@ -89,13 +98,23 @@
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
+    width: 180px;
     background-color: var(--dark-grey);
     border: 1px solid var(--border-grey);
     border-radius: 8px;
     padding: 8px;
     z-index: 10;
-    width: 150px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .dropdown-menu ul {
@@ -105,13 +124,37 @@
 }
 
 .dropdown-menu li {
-    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
     cursor: pointer;
     border-radius: 6px;
+    font-size: 14px;
     transition: background-color 0.2s ease;
 }
 
-.dropdown-menu li:hover,
+.dropdown-menu li span {
+    color: var(--grey-200);
+}
+
+.dropdown-menu li:hover {
+    background-color: var(--grey-700);
+}
+
 .dropdown-menu li.active {
-    background-color: #333;
+    background-color: var(--grey-700);
+}
+
+.check-icon {
+    display: none;
+}
+
+.dropdown-menu li.active span {
+    color: var(--white);
+    font-weight: 500;
+}
+
+.dropdown-menu li.active .check-icon {
+    display: block;
 }

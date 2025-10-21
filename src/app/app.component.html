@@ -15,10 +15,9 @@
           >
           </app-current-weather>
           <app-daily-forecast
+            *ngIf="uiState === 'success'"
             [dailyData]="weatherData.daily"
-            [settings]="settings"
-          >
-          </app-daily-forecast>
+          ></app-daily-forecast>
         </div>
         <div class="side-column">
           <app-hourly-forecast
@@ -36,7 +35,7 @@
     </div>
 
     <div *ngSwitchCase="'no_results'" class="state-container">
-      <h2>No search result found!</h2>
+      <h2>Something went wrong</h2>
       <p>
         We couldn't find weather data for "{{ currentLocation }}". Please check
         the spelling.

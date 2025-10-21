@@ -11,14 +11,31 @@
           alt="dropdown"
         />
       </button>
-      <div class="dropdown-menu" *ngIf="isDropdownOpen">
+
+      <div class="dropdown-menu" [class.show]="isDropdownOpen">
         <ul>
           <li
             *ngFor="let day of days"
             (click)="selectDay(day)"
             [class.active]="day === selectedDay"
           >
-            {{ day }}
+            <span>{{ day }}</span>
+            <svg
+              class="check-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M13.3337 4L6.00033 11.3333L2.66699 8"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           </li>
         </ul>
       </div>
@@ -27,12 +44,12 @@
 
   <div class="forecast-list">
     <div class="forecast-item" *ngFor="let hour of displayData">
-      <span class="time">{{ hour.time }}</span>
       <img
         [src]="'images/icon-' + hour.icon + '.webp'"
         [alt]="hour.icon + ' icon'"
         class="weather-icon"
       />
+      <span class="time">{{ hour.time }}</span>
       <span class="temperature">
         {{ hour.temperature | number : "1.0-0" }}°
       </span>

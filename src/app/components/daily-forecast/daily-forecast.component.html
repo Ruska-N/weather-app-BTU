@@ -1,1 +1,20 @@
-<p>daily-forecast works!</p>
+<div class="daily-forecast-container" *ngIf="dailyData.length > 0">
+  <h2 class="title">Daily forecast</h2>
+
+  <div class="forecast-grid">
+    <div class="forecast-item" *ngFor="let day of dailyData | slice : 0 : 7">
+      <span class="day">{{ day.day }}</span>
+
+      <img
+        [src]="'images/icon-' + day.icon + '.webp'"
+        [alt]="day.icon + ' icon'"
+        class="weather-icon"
+      />
+
+      <div class="temperatures">
+        <span class="temp-max">{{ day.tempMax | number : "1.0-0" }}°</span>
+        <span class="temp-min">{{ day.tempMin | number : "1.0-0" }}°</span>
+      </div>
+    </div>
+  </div>
+</div>

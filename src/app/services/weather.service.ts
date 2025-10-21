@@ -99,6 +99,7 @@ export class WeatherService {
       timezone: 'auto',
       temperature_unit: units.temperature,
       wind_speed_unit: units.wind,
+      // Fix: API expects 'inch' (singular) for 'inches'
       precipitation_unit: units.precipitation === 'inches' ? 'inch' : 'mm',
     };
     const url = 'https://api.open-meteo.com/v1/forecast';
@@ -114,11 +115,6 @@ export class WeatherService {
     if (!current || !hourly || !daily) {
       throw new Error('Incomplete weather data received from API.');
     }
-
-    const isCelsius = units.temperature === 'celsius';
-    const convertTemp = (temp: number) => {
-      return isCelsius ? (temp * 9) / 5 + 32 : ((temp - 32) * 5) / 9;
-    };
 
     const hourlyData = Array.from(
       {
@@ -146,6 +142,7 @@ export class WeatherService {
       }
     );
 
+    // FIX: Simplified daily data to provide simple numbers
     const dailyData = Array.from(
       {
         length:
@@ -160,27 +157,13 @@ export class WeatherService {
         const tempMin = daily.variables(1)?.valuesArray()?.[i] ?? 0;
         const tempMax = daily.variables(2)?.valuesArray()?.[i] ?? 0;
 
-        const temperature = {
-          min: {
-            [units.temperature]: Math.round(tempMin),
-            [isCelsius ? 'fahrenheit' : 'celsius']: Math.round(
-              convertTemp(tempMin)
-            ),
-          },
-          max: {
-            [units.temperature]: Math.round(tempMax),
-            [isCelsius ? 'fahrenheit' : 'celsius']: Math.round(
-              convertTemp(tempMax)
-            ),
-          },
-        };
-
         return {
           day: time.toLocaleDateString('en-US', { weekday: 'short' }),
           date: time,
           weatherCode: weatherCode,
           icon: weatherCodeToIcon(weatherCode),
-          temperature: temperature,
+          tempMin: Math.round(tempMin), // Use simple number
+          tempMax: Math.round(tempMax), // Use simple number
         };
       }
     );
