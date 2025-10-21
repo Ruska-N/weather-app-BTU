@@ -26,7 +26,7 @@
 .forecast-list {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 16px;
 }
 
 .forecast-item {
@@ -34,8 +34,15 @@
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border-grey);
+    padding: 10px 16px 10px 12px;
+    background-color: var(--grey-700);
+    border-radius: 8px;
+    border: 1px solid var(--border-grey);
+    cursor: pointer;
+}
+
+.forecast-item:hover {
+    background-color: var(--grey-600);
 }
 
 .forecast-item:last-child {
@@ -78,7 +85,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: var(--dark-grey);
+    background-color: var(--grey-700);
     transition: background-color 0.2s ease;
 }
 

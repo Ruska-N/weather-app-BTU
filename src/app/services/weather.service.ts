@@ -46,9 +46,15 @@ export class WeatherService {
   }
 
   getCoordinatesForCity(
-    city: string
+    city: string // Сюда приходит "New York, US"
   ): Observable<{ latitude: number; longitude: number } | null> {
-    const url = `${this.geoApiUrl}?name=${city}&count=1&language=en&format=json`;
+    // ИСПРАВЛЕНИЕ: Очищаем город от ", US" и т.д.
+    const cityName = city.split(',')[0].trim();
+    // Теперь cityName = "New York"
+
+    // Используем очищенный cityName в URL
+    const url = `${this.geoApiUrl}?name=${cityName}&count=1&language=en&format=json`;
+
     return this.http.get<any>(url).pipe(
       map((response) => {
         if (response?.results?.length > 0) {
@@ -99,7 +105,6 @@ export class WeatherService {
       timezone: 'auto',
       temperature_unit: units.temperature,
       wind_speed_unit: units.wind,
-      // Fix: API expects 'inch' (singular) for 'inches'
       precipitation_unit: units.precipitation === 'inches' ? 'inch' : 'mm',
     };
     const url = 'https://api.open-meteo.com/v1/forecast';
@@ -142,7 +147,6 @@ export class WeatherService {
       }
     );
 
-    // FIX: Simplified daily data to provide simple numbers
     const dailyData = Array.from(
       {
         length:
@@ -162,8 +166,8 @@ export class WeatherService {
           date: time,
           weatherCode: weatherCode,
           icon: weatherCodeToIcon(weatherCode),
-          tempMin: Math.round(tempMin), // Use simple number
-          tempMax: Math.round(tempMax), // Use simple number
+          tempMin: Math.round(tempMin),
+          tempMax: Math.round(tempMax),
         };
       }
     );
