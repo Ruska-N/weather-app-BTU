@@ -6,11 +6,15 @@
       placeholder="Search for a place"
       [(ngModel)]="searchQuery"
       (ngModelChange)="onInputChange()"
+      (focus)="onFocus()"
       name="searchQuery"
       autocomplete="off"
     />
-    <div class="suggestions-dropdown" *ngIf="showSuggestions">
-      <ul>
+    <div
+      class="suggestions-dropdown"
+      *ngIf="showSuggestions && (suggestions$ | async) as suggestions"
+    >
+      <ul *ngIf="suggestions.length > 0">
         <li *ngFor="let city of suggestions" (click)="selectCity(city)">
           {{ city }}
         </li>

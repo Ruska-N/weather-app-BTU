@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UnitSettings } from '../../services/weather.service'; 
+
+import { UnitSettings } from '../../services/weather.service';
 
 @Component({
   selector: 'app-hourly-forecast',
@@ -21,7 +22,7 @@ export class HourlyForecastComponent implements OnChanges {
   isDropdownOpen = false;
   days: string[] = [];
   selectedDay!: string;
-  displayData: any[] = []; 
+  displayData: any[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['hourlyData'] && this.hourlyData?.length > 0) {
@@ -76,7 +77,7 @@ export class HourlyForecastComponent implements OnChanges {
 
   selectDay(day: string): void {
     this.selectedDay = day;
-    this.filterDataForSelectedDay(); 
-    this.isDropdownOpen = false; 
+    this.filterDataForSelectedDay();
+    this.isDropdownOpen = false;
   }
 }

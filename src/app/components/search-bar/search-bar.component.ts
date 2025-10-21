@@ -8,8 +8,13 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WeatherService } from '../../services/weather.service';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject, Observable, of } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  catchError,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -20,7 +25,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class SearchBarComponent {
   searchQuery: string = '';
-  suggestions: string[] = [];
+  suggestions$: Observable<string[]>;
   showSuggestions = false;
 
   private searchTerms = new Subject<string>();
@@ -31,45 +36,33 @@ export class SearchBarComponent {
     private weatherService: WeatherService,
     private elementRef: ElementRef
   ) {
-    console.log('SearchBarComponent: Initialized'); // Log 1
+    this.suggestions$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) =>
+        term ? this.weatherService.getCitySuggestions(term) : of([])
+      ),
+      catchError(() => {
+        return of([]);
+      })
+    );
+  }
 
-    this.searchTerms
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((term: string) =>
-          this.weatherService.getCitySuggestions(term)
-        )
-      )
-      .subscribe({
-        next: (cities: unknown) => {
-          console.log(
-            'SearchBarComponent: Received suggestions from service:',
-            cities
-          ); // Log 3
-          if (Array.isArray(cities)) {
-            this.suggestions = cities as string[];
-            this.showSuggestions =
-              this.searchQuery.length > 0 && cities.length > 0;
-            console.log(
-              'SearchBarComponent: showSuggestions is now:',
-              this.showSuggestions
-            ); // Log 4
-          }
-        },
-        error: (err: unknown) => {
-          console.error('SearchBarComponent: Error fetching suggestions:', err);
-          this.showSuggestions = false;
-        },
-      });
+  onFocus(): void {
+    this.showSuggestions = true;
+  }
+
+  @HostListener('window:click', ['$event'])
+  onWindowClick(event: Event): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.showSuggestions = false;
+    }
   }
 
   onInputChange(): void {
-    console.log('SearchBarComponent: Input changed:', this.searchQuery); // Log 2
-    if (this.searchQuery.trim()) {
-      this.searchTerms.next(this.searchQuery);
-    } else {
-      this.showSuggestions = false;
+    this.searchTerms.next(this.searchQuery);
+    if (this.searchQuery) {
+      this.showSuggestions = true;
     }
   }
 
@@ -81,14 +74,7 @@ export class SearchBarComponent {
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
-      this.search.emit(this.searchQuery);
-      this.showSuggestions = false;
-    }
-  }
-
-  @HostListener('window:click', ['$event'])
-  onWindowClick(event: Event): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.search.emit(this.searchQuery.trim());
       this.showSuggestions = false;
     }
   }
