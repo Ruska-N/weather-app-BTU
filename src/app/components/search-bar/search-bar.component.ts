@@ -42,9 +42,7 @@ export class SearchBarComponent {
       switchMap((term: string) =>
         term ? this.weatherService.getCitySuggestions(term) : of([])
       ),
-      catchError(() => {
-        return of([]);
-      })
+      catchError(() => of([]))
     );
   }
 

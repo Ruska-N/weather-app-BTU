@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UnitSettings } from '../header/header.component';
+
+export interface UnitSettings {
+  temperature: 'celsius' | 'fahrenheit';
+  wind: 'kmh' | 'mph';
+  precipitation: 'mm' | 'inches';
+}
 
 @Component({
   selector: 'app-daily-forecast',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { fetchWeatherApi } from 'openmeteo';
-import { Observable, from, of } from 'rxjs';
+import { Observable, from, of, throwError } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 
 export interface UnitSettings {
@@ -17,7 +17,7 @@ const weatherCodeToIcon = (code: number): string => {
   if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return 'rain';
   if ([71, 73, 75, 85, 86].includes(code)) return 'snow';
   if ([95, 96, 99].includes(code)) return 'storm';
-  return 'sunny'; 
+  return 'sunny';
 };
 
 @Injectable({
@@ -71,10 +71,9 @@ export class WeatherService {
         }
         return of(null);
       }),
-      catchError(() => {
-        return new Observable((observer) => {
-          observer.error(new Error('Failed to fetch weather data.'));
-        });
+      catchError((err) => {
+        console.error(err);
+        return throwError(() => new Error('Failed to fetch weather data.'));
       })
     );
   }
@@ -99,17 +98,27 @@ export class WeatherService {
       ],
       timezone: 'auto',
       temperature_unit: units.temperature,
-      wind_speed_unit: units.wind === 'kmh' ? 'kmh' : 'ms', 
-      precipitation_unit: units.precipitation === 'mm' ? 'mm' : 'inch',
+      wind_speed_unit: units.wind,
+      precipitation_unit: units.precipitation === 'inches' ? 'inch' : 'mm',
     };
     const url = 'https://api.open-meteo.com/v1/forecast';
     const responses = await fetchWeatherApi(url, params as any);
 
     const response = responses[0];
     const utcOffsetSeconds = response.utcOffsetSeconds();
-    const current = response.current()!;
-    const hourly = response.hourly()!;
-    const daily = response.daily()!;
+
+    const current = response.current();
+    const hourly = response.hourly();
+    const daily = response.daily();
+
+    if (!current || !hourly || !daily) {
+      throw new Error('Incomplete weather data received from API.');
+    }
+
+    const isCelsius = units.temperature === 'celsius';
+    const convertTemp = (temp: number) => {
+      return isCelsius ? (temp * 9) / 5 + 32 : ((temp - 32) * 5) / 9;
+    };
 
     const hourlyData = Array.from(
       {
@@ -122,15 +131,17 @@ export class WeatherService {
           (Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) *
             1000
         );
+        const temperature = hourly.variables(0)?.valuesArray()?.[i] ?? 0;
+        const weatherCode = hourly.variables(1)?.valuesArray()?.[i] ?? 0;
         return {
           time: time.toLocaleTimeString('en-US', {
             hour: 'numeric',
             hour12: true,
           }),
           date: time,
-          temperature: hourly.variables(0)!.valuesArray()![i],
-          weatherCode: hourly.variables(1)!.valuesArray()![i],
-          icon: weatherCodeToIcon(hourly.variables(1)!.valuesArray()![i]),
+          temperature: temperature,
+          weatherCode: weatherCode,
+          icon: weatherCodeToIcon(weatherCode),
         };
       }
     );
@@ -145,13 +156,31 @@ export class WeatherService {
           (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
             1000
         );
+        const weatherCode = daily.variables(0)?.valuesArray()?.[i] ?? 0;
+        const tempMin = daily.variables(1)?.valuesArray()?.[i] ?? 0;
+        const tempMax = daily.variables(2)?.valuesArray()?.[i] ?? 0;
+
+        const temperature = {
+          min: {
+            [units.temperature]: Math.round(tempMin),
+            [isCelsius ? 'fahrenheit' : 'celsius']: Math.round(
+              convertTemp(tempMin)
+            ),
+          },
+          max: {
+            [units.temperature]: Math.round(tempMax),
+            [isCelsius ? 'fahrenheit' : 'celsius']: Math.round(
+              convertTemp(tempMax)
+            ),
+          },
+        };
+
         return {
           day: time.toLocaleDateString('en-US', { weekday: 'short' }),
           date: time,
-          weatherCode: daily.variables(0)!.valuesArray()![i],
-          icon: weatherCodeToIcon(daily.variables(0)!.valuesArray()![i]),
-          tempMin: daily.variables(1)!.valuesArray()![i],
-          tempMax: daily.variables(2)!.valuesArray()![i],
+          weatherCode: weatherCode,
+          icon: weatherCodeToIcon(weatherCode),
+          temperature: temperature,
         };
       }
     );
@@ -159,12 +188,13 @@ export class WeatherService {
     const weatherData = {
       current: {
         time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-        temperature: current.variables(0)!.value(),
-        precipitation: current.variables(1)!.value(),
-        windSpeed: current.variables(2)!.value(),
-        humidity: current.variables(3)!.value(),
-        feelsLike: current.variables(4)!.value(),
-        weatherCode: current.variables(5)!.value(),
+        temperature: current.variables(0)?.value() ?? 0,
+        precipitation: current.variables(1)?.value() ?? 0,
+        windSpeed: current.variables(2)?.value() ?? 0,
+        humidity: current.variables(3)?.value() ?? 0,
+        feelsLike: current.variables(4)?.value() ?? 0,
+        weatherCode: current.variables(5)?.value() ?? 0,
+        icon: weatherCodeToIcon(current.variables(5)?.value() ?? 0),
       },
       hourly: hourlyData,
       daily: dailyData,
