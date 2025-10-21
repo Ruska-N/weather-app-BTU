@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UnitSettings } from '../header/header.component';
+import { UnitSettings } from '../../services/weather.service'; 
 
 @Component({
   selector: 'app-hourly-forecast',
@@ -10,13 +10,18 @@ import { UnitSettings } from '../header/header.component';
   styleUrl: './hourly-forecast.component.css',
 })
 export class HourlyForecastComponent implements OnChanges {
-  @Input() hourlyData: any[] = [];
+  @Input() hourlyData: {
+    time: string;
+    date: Date;
+    temperature: number;
+    icon: string;
+  }[] = [];
   @Input() settings!: UnitSettings;
 
   isDropdownOpen = false;
   days: string[] = [];
   selectedDay!: string;
-  displayData: any[] = [];
+  displayData: any[] = []; 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['hourlyData'] && this.hourlyData?.length > 0) {
@@ -31,7 +36,7 @@ export class HourlyForecastComponent implements OnChanges {
       daySet.add(hour.date.toLocaleDateString('en-US', { weekday: 'long' }));
     });
     this.days = Array.from(daySet);
-    if (this.days.length > 0) {
+    if (this.days.length > 0 && !this.selectedDay) {
       this.selectedDay = this.days[0];
     }
   }
@@ -52,6 +57,7 @@ export class HourlyForecastComponent implements OnChanges {
 
     const isToday =
       this.selectedDay === now.toLocaleDateString('en-US', { weekday: 'long' });
+
     const startIndex = isToday
       ? filteredByDay.findIndex((hour) => hour.date > now)
       : 0;
@@ -70,7 +76,7 @@ export class HourlyForecastComponent implements OnChanges {
 
   selectDay(day: string): void {
     this.selectedDay = day;
-    this.filterDataForSelectedDay();
-    this.isDropdownOpen = false;
+    this.filterDataForSelectedDay(); 
+    this.isDropdownOpen = false; 
   }
 }

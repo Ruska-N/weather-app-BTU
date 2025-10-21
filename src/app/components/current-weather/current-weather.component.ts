@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UnitSettings } from '../header/header.component';
+import { UnitSettings } from '../../services/weather.service';
 
 const weatherCodeToIcon = (code: number): string => {
   if (code === 0) return 'sunny';
@@ -29,8 +29,8 @@ export class CurrentWeatherComponent {
   get weatherIcon(): string {
     if (this.currentWeather && this.currentWeather.weatherCode !== undefined) {
       const iconName = weatherCodeToIcon(this.currentWeather.weatherCode);
-      return 'images/icon-${iconName}.webp';
+      return `images/icon-${iconName}.webp`;
     }
-    return 'images/weather-icons/icon-suny.webp';
+    return 'images/icon-sunny.webp';
   }
 }

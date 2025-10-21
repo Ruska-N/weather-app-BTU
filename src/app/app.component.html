@@ -1,0 +1,55 @@
+<app-header (settingsChanged)="onSettingsChange($event)"></app-header>
+
+<main class="container">
+  <h1>How’s the sky looking today?</h1>
+  <app-search-bar (search)="handleSearch($event)"></app-search-bar>
+
+  <div [ngSwitch]="uiState">
+    <ng-container *ngSwitchCase="'success'">
+      <div class="weather-grid">
+        <div class="main-column">
+          <app-current-weather
+            [currentWeather]="weatherData.current"
+            [cityName]="currentLocation"
+            [settings]="settings"
+          >
+          </app-current-weather>
+          <app-daily-forecast
+            [dailyData]="weatherData.daily"
+            [settings]="settings"
+          >
+          </app-daily-forecast>
+        </div>
+        <div class="side-column">
+          <app-hourly-forecast
+            [hourlyData]="weatherData.hourly"
+            [settings]="settings"
+          >
+          </app-hourly-forecast>
+        </div>
+      </div>
+    </ng-container>
+
+    <div *ngSwitchCase="'loading'" class="state-container">
+      <div class="loader"></div>
+      <p>Loading weather data...</p>
+    </div>
+
+    <div *ngSwitchCase="'no_results'" class="state-container">
+      <h2>No search result found!</h2>
+      <p>
+        We couldn't find weather data for "{{ currentLocation }}". Please check
+        the spelling.
+      </p>
+    </div>
+
+    <div *ngSwitchCase="'error'" class="state-container error-state">
+      <img src="images/icon-error.svg" alt="error icon" class="error-icon" />
+      <h2>Something went wrong</h2>
+      <p>
+        We couldn't connect to the server. Please try again in a few moments.
+      </p>
+      <button (click)="loadWeather(currentLocation)">Retry</button>
+    </div>
+  </div>
+</main>

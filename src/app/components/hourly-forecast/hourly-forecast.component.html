@@ -33,11 +33,8 @@
         [alt]="hour.icon + ' icon'"
         class="weather-icon"
       />
-      <span class="temperature" *ngIf="settings.temperature === 'celsius'">
-        {{ hour.temperature.celsius }}°
-      </span>
-      <span class="temperature" *ngIf="settings.temperature === 'fahrenheit'">
-        {{ hour.temperature.fahrenheit }}°
+      <span class="temperature">
+        {{ hour.temperature | number : "1.0-0" }}°
       </span>
     </div>
   </div>
