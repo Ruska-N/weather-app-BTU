@@ -1,0 +1,92 @@
+main.container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+main.container h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.main-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--white);
+  min-height: 400px;
+}
+
+.loader {
+  border: 4px solid var(--border-grey);
+  border-top: 4px solid var(--primary-blue);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-state .error-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+}
+
+.error-state h2, .state-container h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.error-state p, .state-container p {
+    color: var(--grey-200);
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+
+.error-state button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-grey);
+    background-color: transparent;
+    color: var(--white);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.error-state button:hover {
+    background-color: var(--dark-grey);
+    border-color: var(--white);
+}
+
+
+@media (max-width: 992px) {
+  .weather-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

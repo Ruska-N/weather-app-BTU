@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+export interface DailyForecast {
+  day: string;
+  date: Date;
+  weatherCode: number;
+  icon: string;
+  tempMin: number;
+  tempMax: number;
+}
 
 @Component({
   selector: 'app-daily-forecast',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './daily-forecast.component.html',
-  styleUrl: './daily-forecast.component.css'
+  styleUrls: ['./daily-forecast.component.css'],
 })
 export class DailyForecastComponent {
-
+  @Input() dailyData: DailyForecast[] = [];
 }
