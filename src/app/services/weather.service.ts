@@ -20,8 +20,7 @@ const weatherCodeToIcon = (code: number): string => {
   if ([95, 96, 99].includes(code)) return 'storm';
   return 'sunny';
 };
-import { fetchWeatherApi } from 'openmeteo';
-import { Observable, from } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -241,7 +240,7 @@ export class WeatherService {
   }
 
   
-  getWeather(): Observable<any> {
-    return from(this.fetchWeather());
-  }
+  // getWeather(): Observable<any> {
+  //   return from(this.fetchWeather());
+  // }
 }
