@@ -1,85 +1,64 @@
 :host {
-    display: block;
+  display: block;
 }
 
 .current-weather-container {
-    background: var(--dark-grey);
-    border: 1px solid var(--border-grey);
-    border-radius: 12px;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    box-sizing: border-box;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
 }
 
 .main-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.location-details h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0;
-}
-
-.location-details p {
-    font-size: 1.1rem;
-    color: var(--grey-200);
-    margin-top: 8px;
+  background-image: linear-gradient(
+      to bottom right,
+      rgba(70, 88, 217, 0.5) 0%,
+      rgba(43, 27, 156, 0.5) 100%
+    ),
+    url("/images/bg-today-large.svg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  padding: 84px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .temperature-details {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .weather-icon-large {
-    width: 80px;
-    height: 80px;
+  width: 120px;
+  height: 120px;
 }
 
 .temperature {
-    font-size: 6rem;
-    font-weight: 700;
-    line-height: 1;
-    position: relative;
-}
-
-.degree-symbol {
-    font-size: 3rem;
-    position: absolute;
-    top: 10px;
-    right: -35px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 96px;
+  font-weight: 600;
+  font-style: italic;
 }
 
 .weather-details-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .detail-card {
-    background: #1A1A1A;
-    border: 1px solid var(--border-grey);
-    border-radius: 8px;
-    padding: 24px;
-    text-align: center;
+  background: var(--dark-grey);
+  border: 1px solid var(--border-grey);
+  border-radius: 12px;
+  padding: 20px;
 }
 
 .detail-label {
-    margin: 0 0 16px 0;
-    color: var(--grey-300);
-    font-size: 1rem;
+  margin-bottom: 24px;
+  color: var(--grey-200);
 }
 
-.detail-value {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-}

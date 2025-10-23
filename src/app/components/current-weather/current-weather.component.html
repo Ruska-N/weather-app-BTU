@@ -16,29 +16,29 @@
 
   <div class="weather-details-grid">
     <div class="detail-card">
-      <p class="detail-label">Feels Like</p>
-      <p class="detail-value">
+      <h4 class="detail-label">Feels Like</h4>
+      <h6 class="detail-value">
         <span *ngIf="settings.temperature === 'celsius'">{{ currentWeather.feelsLike | number:'1.0-0' }}°</span>
         <span *ngIf="settings.temperature === 'fahrenheit'">{{ (currentWeather.feelsLike * 9/5 + 32) | number:'1.0-0' }}°</span>
-      </p>
+      </h6>
     </div>
     <div class="detail-card">
-      <p class="detail-label">Humidity</p>
-      <p class="detail-value">{{ currentWeather.humidity | number:'1.0-0' }}%</p>
+      <h4 class="detail-label">Humidity</h4>
+      <h6 class="detail-value">{{ currentWeather.humidity | number:'1.0-0' }}%</h6>
     </div>
     <div class="detail-card">
-      <p class="detail-label">Wind</p>
-      <p class="detail-value">
+      <h4 class="detail-label">Wind</h4>
+      <h6 class="detail-value">
         <span *ngIf="settings.wind === 'kmh'">{{ currentWeather.windSpeed | number:'1.0-0' }} km/h</span>
         <span *ngIf="settings.wind === 'mph'">{{ (currentWeather.windSpeed / 1.609) | number:'1.0-0' }} mph</span>
-      </p>
+      </h6>
     </div>
     <div class="detail-card">
-      <p class="detail-label">Precipitation</p>
-      <p class="detail-value">
+      <h4 class="detail-label">Precipitation</h4>
+      <h6 class="detail-value">
         <span *ngIf="settings.precipitation === 'mm'">{{ currentWeather.precipitation | number:'1.0-0' }} mm</span>
         <span *ngIf="settings.precipitation === 'inches'">{{ (currentWeather.precipitation / 25.4) | number:'1.1-1' }} in</span>
-      </p>
+      </h6>
     </div>
   </div>
 </div>
