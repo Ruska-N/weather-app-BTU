@@ -1,4 +1,3 @@
-// src/app/services/weather.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { fetchWeatherApi } from 'openmeteo';
@@ -21,7 +20,6 @@ const weatherCodeToIcon = (code: number): string => {
   return 'sunny';
 };
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -40,18 +38,21 @@ export class WeatherService {
     return this.http.get<any>(url).pipe(
       map(
         (response) =>
-          response?.results?.map(
-            (city: any) => { const countryFullName = regionNames.of(city.country_code);
-        return `${city.name}, ${countryFullName}`;}
-          ) || []
+          response?.results?.map((city: any) => {
+            const countryFullName = regionNames.of(city.country_code);
+            return `${city.name}, ${countryFullName}`;
+          }) || []
       ),
       catchError(() => of([]))
     );
   }
 
   getCoordinatesForCity(
-    city: string 
+    city: string
   ): Observable<{ latitude: number; longitude: number } | null> {
+    if (typeof city !== 'string' || !city.trim()) {
+      return of(null);
+    }
 
     const cityName = city.split(',')[0].trim();
 
@@ -193,13 +194,20 @@ export class WeatherService {
   }
   async fetchWeather() {
     const params = {
-      latitude: 41.7151, 
+      latitude: 41.7151,
       longitude: 44.8271,
-      daily: ["weather_code", "temperature_2m_min", "temperature_2m_max"],
-      hourly: ["temperature_2m", "weather_code"],
-      current: ["temperature_2m", "precipitation", "wind_speed_10m", "relative_humidity_2m", "apparent_temperature", "weather_code"],
+      daily: ['weather_code', 'temperature_2m_min', 'temperature_2m_max'],
+      hourly: ['temperature_2m', 'weather_code'],
+      current: [
+        'temperature_2m',
+        'precipitation',
+        'wind_speed_10m',
+        'relative_humidity_2m',
+        'apparent_temperature',
+        'weather_code',
+      ],
     };
-    const url = "https://api.open-meteo.com/v1/forecast";
+    const url = 'https://api.open-meteo.com/v1/forecast';
 
     const responses = await fetchWeatherApi(url, params);
     const response = responses[0];
@@ -220,15 +228,34 @@ export class WeatherService {
         weatherCode: current.variables(5)!.value(),
       },
       hourly: {
-        time: [...Array((Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval())].map(
-          (_, i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
+        time: [
+          ...Array(
+            (Number(hourly.timeEnd()) - Number(hourly.time())) /
+              hourly.interval()
+          ),
+        ].map(
+          (_, i) =>
+            new Date(
+              (Number(hourly.time()) +
+                i * hourly.interval() +
+                utcOffsetSeconds) *
+                1000
+            )
         ),
         temperature: hourly.variables(0)!.valuesArray(),
         weatherCode: hourly.variables(1)!.valuesArray(),
       },
       daily: {
-        time: [...Array((Number(daily.timeEnd()) - Number(daily.time())) / daily.interval())].map(
-          (_, i) => new Date((Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) * 1000)
+        time: [
+          ...Array(
+            (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval()
+          ),
+        ].map(
+          (_, i) =>
+            new Date(
+              (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
+                1000
+            )
         ),
         weatherCode: daily.variables(0)!.valuesArray(),
         tempMin: daily.variables(1)!.valuesArray(),

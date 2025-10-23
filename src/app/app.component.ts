@@ -43,11 +43,21 @@ export class AppComponent implements OnInit {
     this.loadWeather(this.currentLocation);
   }
 
-  loadWeather(city: string): void {
-    this.uiState = 'loading';
-    this.currentLocation = city;
+  loadWeather(city: string | any): void {
+    const safeCity =
+      typeof city === 'string' && city.trim()
+        ? city
+        : this.currentLocation || '';
 
-    this.weatherService.getWeather(city, this.settings).subscribe({
+    if (!safeCity) {
+      this.uiState = 'no_results';
+      return;
+    }
+
+    this.uiState = 'loading';
+    this.currentLocation = safeCity;
+
+    this.weatherService.getWeather(safeCity, this.settings).subscribe({
       next: (data) => {
         if (data) {
           this.weatherData = data;
@@ -64,14 +74,14 @@ export class AppComponent implements OnInit {
     });
   }
 
-  handleSearch(city: string): void {
-    this.loadWeather(city);
+  handleSearch(city: string | Event | any): void {
+    const safeCity = typeof city === 'string' ? city : '';
+
+    this.loadWeather(safeCity);
   }
 
   onSettingsChange(newSettings: UnitSettings): void {
     this.settings = newSettings;
-    if (this.currentLocation) {
-      this.loadWeather(this.currentLocation);
-    }
+    this.loadWeather(this.currentLocation);
   }
 }

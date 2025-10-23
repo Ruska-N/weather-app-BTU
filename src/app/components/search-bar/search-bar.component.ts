@@ -65,14 +65,22 @@ export class SearchBarComponent {
   }
 
   selectCity(city: string): void {
+    if (typeof city !== 'string') return;
+
     this.searchQuery = city;
     this.showSuggestions = false;
+
     this.onSearch();
   }
 
-  onSearch(): void {
-    if (this.searchQuery.trim()) {
-      this.search.emit(this.searchQuery.trim());
+  onSearch(event?: Event | null): void {
+    if (event) {
+      event.preventDefault();
+    }
+
+    const query = this.searchQuery.trim();
+    if (query && typeof query === 'string') {
+      this.search.emit(query);
       this.showSuggestions = false;
     }
   }
