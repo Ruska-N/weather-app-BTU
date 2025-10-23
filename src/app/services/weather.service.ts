@@ -50,13 +50,11 @@ export class WeatherService {
   }
 
   getCoordinatesForCity(
-    city: string // Сюда приходит "New York, US"
+    city: string 
   ): Observable<{ latitude: number; longitude: number } | null> {
-    // ИСПРАВЛЕНИЕ: Очищаем город от ", US" и т.д.
-    const cityName = city.split(',')[0].trim();
-    // Теперь cityName = "New York"
 
-    // Используем очищенный cityName в URL
+    const cityName = city.split(',')[0].trim();
+
     const url = `${this.geoApiUrl}?name=${cityName}&count=1&language=en&format=json`;
 
     return this.http.get<any>(url).pipe(
