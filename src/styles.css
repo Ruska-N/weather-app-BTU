@@ -37,11 +37,6 @@ button {
     font-family: "DM Sans", sans-serif;
 }
 
-.container {
-    width: 84.44%;
-    margin: auto;
-}
-
 h1 {
     font-family: "Bricolage Grotesque", sans-serif;
     font-size: 52px;
@@ -49,6 +44,7 @@ h1 {
     line-height: 120%;
     text-align: center;
     color: var(--white);
+    margin-bottom: 64px;
 }
 
 h2 {

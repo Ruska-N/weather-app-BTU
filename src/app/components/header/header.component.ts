@@ -6,6 +6,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 export interface UnitSettings {
   temperature: 'celsius' | 'fahrenheit';
@@ -16,7 +17,7 @@ export interface UnitSettings {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })

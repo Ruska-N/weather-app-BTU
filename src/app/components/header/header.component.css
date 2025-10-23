@@ -3,6 +3,8 @@
 }
 
 .header-container {
+    max-width: 1216px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -137,8 +139,4 @@
     border: none;
     border-top: 1px solid var(--border-grey);
     margin: 8px 0;
-}
-
-h1 {
-    margin: 64px 0px;
 }

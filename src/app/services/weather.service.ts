@@ -35,12 +35,14 @@ export class WeatherService {
       return of([]);
     }
     const url = `${this.geoApiUrl}?name=${term}&count=5&language=en&format=json`;
+    const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
 
     return this.http.get<any>(url).pipe(
       map(
         (response) =>
           response?.results?.map(
-            (city: any) => `${city.name}, ${city.country_code}`
+            (city: any) => { const countryFullName = regionNames.of(city.country_code);
+        return `${city.name}, ${countryFullName}`;}
           ) || []
       ),
       catchError(() => of([]))
@@ -238,9 +240,4 @@ export class WeatherService {
 
     return weatherData;
   }
-
-  
-  // getWeather(): Observable<any> {
-  //   return from(this.fetchWeather());
-  // }
 }

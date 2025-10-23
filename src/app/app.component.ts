@@ -29,7 +29,7 @@ type UiState = 'initial' | 'loading' | 'success' | 'no_results' | 'error';
 export class AppComponent implements OnInit {
   uiState: UiState = 'initial';
   weatherData: any = null;
-  currentLocation: string = 'Tbilisi';
+  currentLocation: string = 'Tbilisi, Georgia';
   settings: UnitSettings = {
     temperature: 'celsius',
     wind: 'kmh',

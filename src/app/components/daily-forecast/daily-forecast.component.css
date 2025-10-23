@@ -3,18 +3,15 @@
 }
 
 .daily-forecast-container {
-    background-color: var(--dark-grey);
-    border: 1px solid var(--border-grey);
-    border-radius: 12px;
-    padding: 24px;
-    color: var(--white);
+    margin-top: 48px;
+    max-width: 800px;
 }
 
 .title {
+    font-family: "DM Sans", sans-serif;
     font-size: 20px;
     font-weight: 600;
-    margin: 0;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .forecast-grid {
@@ -27,38 +24,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    background: none;
-    border-radius: 8px;
-    padding: 12px 8px;
+    gap: 16px;
+    background-color: var(--dark-grey);
+    border: 1px solid var(--border-grey);
+    border-radius: 12px;
+    padding: 16px 10px;
 }
 
 .day {
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--white);
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
 }
 
 .weather-icon {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
 }
 
 .temperatures {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 4px;
-}
-
-.temp-max {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--white);
-}
-
-.temp-min {
-    font-size: 16px;
+    justify-content: space-between;
+    gap: 33px;
+    font-family: "DM Sans", sans-serif;
     font-weight: 500;
-    color: var(--grey-200);
+    font-size: 16px;
 }
